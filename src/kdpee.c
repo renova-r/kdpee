@@ -216,8 +216,8 @@ SEXP do_kdpee(SEXP sX, SEXP sZ, SEXP sMinX, SEXP sMaxX) {
     error("Incorrect length for sMaxX vector. Expected %i, got %i.", d, maxn);
 
   /* Allocate work memory */
-  int *keys = Calloc(n, int);
-  const double **XX = Calloc(d, const double *);
+  int *keys = R_Calloc(n, int);
+  const double **XX = R_Calloc(d, const double *);
   for (int col = 0; col < d; ++col) {
     XX[col] = X + col * n;
   }
@@ -225,8 +225,8 @@ SEXP do_kdpee(SEXP sX, SEXP sZ, SEXP sMinX, SEXP sMaxX) {
   double entropy = kdpee(XX, n, d, mins, maxs, z, keys);
 
   /* Free work memory */
-  Free(XX);
-  Free(keys);
+  R_Free(XX);
+  R_Free(keys);
   return ScalarReal(entropy);
 }
 
